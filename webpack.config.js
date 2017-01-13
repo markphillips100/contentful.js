@@ -1,11 +1,33 @@
+'use strict'
 var webpack = require('webpack')
 var path = require('path')
+var LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
+var plugins = [
+  new LodashModuleReplacementPlugin(),
+  new webpack.optimize.OccurenceOrderPlugin(),
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+  })
+]
+
+if (process.env.NODE_ENV === 'production') {
+  plugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        screw_ie8: true,
+        warnings: false
+      }
+    })
+  )
+}
+
 module.exports = {
-  context: __dirname,
-  entry: './browser',
+  context: path.join(__dirname, 'lib'),
+  entry: './contentful.js',
   output: {
-    path: path.join(__dirname, 'browser-dist'),
+    path: path.join(__dirname, 'dist'),
     filename: 'contentful.js',
+    libraryTarget: 'umd',
     library: 'contentful'
   },
   module: {
@@ -21,7 +43,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new webpack.NormalModuleReplacementPlugin(/\.\/vendor-node\/axios/g, './vendor-browser/axios.js')
-  ]
+  plugins: plugins
 }
