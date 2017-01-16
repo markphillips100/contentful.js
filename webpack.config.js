@@ -1,9 +1,9 @@
 'use strict'
 var webpack = require('webpack')
 var path = require('path')
-var LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
+var RewirePlugin = require('rewire-webpack')
 var plugins = [
-  new LodashModuleReplacementPlugin(),
+  new RewirePlugin(),
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
