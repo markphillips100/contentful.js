@@ -2,7 +2,6 @@ node_modules
 *.log
 coverage
 .lock-wscript
-dist
 browser-dist
 out
 gh-pages

@@ -1,1 +1,1 @@
-module.exports = ''
+"module.exports = '`cat package.json|json version`'" 
