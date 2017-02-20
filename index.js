@@ -5,8 +5,6 @@ try {
   contentful = require('./dist/contentful').default
 } catch (err) {
   if (err.code === 'MODULE_NOT_FOUND') {
-    require('babel-register')
-    contentful = require('./lib/contentful').default
   } else {
     console.log(err)
     process.exit(1)
